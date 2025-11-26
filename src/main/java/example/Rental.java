@@ -1,5 +1,7 @@
 package example;
 
+import static example.Movie.MovieType.*;
+
 class Rental {
     private final Movie movie;
     private final int daysRented;
@@ -15,5 +17,12 @@ class Rental {
 
     public Movie getMovie() {
         return movie;
+    }
+    public double getCharge() {
+        return movie.getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints() {
+        return movie.getFrequentRenterPoints(daysRented);
     }
 }

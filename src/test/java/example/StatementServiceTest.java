@@ -1,13 +1,26 @@
 package example;
 
-import org.junit.Test;
+import example.model.Customer;
+import example.model.Movie;
+import example.model.Rental;
+import example.service.RentalService;
+import example.service.StatementService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static example.Movie.MovieType.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerTest {
+public class StatementServiceTest {
+
+    private StatementService statementService;
+
+    @BeforeEach
+    public void setUp() {
+        RentalService rentalService = new RentalService();
+        statementService = new StatementService(rentalService);
+    }
 
     @Test
     public void testStatementRegularMovie() {
@@ -20,7 +33,7 @@ public class CustomerTest {
                 "Amount owed is 2.0\n" +
                 "You earned 1 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -34,7 +47,7 @@ public class CustomerTest {
                 "Amount owed is 3.5\n" +
                 "You earned 1 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -48,7 +61,7 @@ public class CustomerTest {
                 "Amount owed is 3.0\n" +
                 "You earned 1 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -62,7 +75,7 @@ public class CustomerTest {
                 "Amount owed is 6.0\n" +
                 "You earned 2 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -76,7 +89,7 @@ public class CustomerTest {
                 "Amount owed is 1.5\n" +
                 "You earned 1 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -90,7 +103,7 @@ public class CustomerTest {
                 "Amount owed is 3.0\n" +
                 "You earned 1 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -112,7 +125,7 @@ public class CustomerTest {
                 "Amount owed is 12.5\n" +
                 "You earned 4 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 
     @Test
@@ -123,6 +136,6 @@ public class CustomerTest {
                 "Amount owed is 0.0\n" +
                 "You earned 0 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        assertEquals(expected, statementService.generateStatement(customer));
     }
 }
